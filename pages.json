@@ -29,6 +29,21 @@
 		}
 
 	}],
+	"subPackages":[{
+		"root":"subpkg",
+		"pages":[
+			{
+			"path":"goods/goods",
+			"style":{}
+			}
+		    ,{
+                    "path" : "goods_list/goods_list",
+                    "style" : {}
+                }
+            ]
+	}
+		
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "昆乐购",
