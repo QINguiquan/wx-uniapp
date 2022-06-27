@@ -1,5 +1,10 @@
 <template>
 	<view>
+		<!-- 搜索组件 -->
+		<view class="search-box">
+			<my-search @click="onFn"></my-search>			
+		</view>
+		<!-- /搜索组件 -->
 		<!-- 轮播图 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" circular="ture">
 			<swiper-item v-for="(item,i) in swiperList" :key="i">
@@ -96,6 +101,11 @@
 				
 			})
 			this.foorlist= data.message
+		},
+		onFn(){
+			uni.navigateTo({
+				url:'/subpkg/search/search'
+			})
 		}
 		
      
@@ -139,5 +149,10 @@
   .floor-img-box {
     display: flex;
     padding-left: 10rpx;
+  }
+  .search-box{
+	  position:sticky;
+	  top:0;
+	  z-index: 999;
   }
 </style>

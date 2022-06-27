@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<my-search @click="gotoFn"></my-search>
 		<view class="sroll-view-container">
 			<!-- 左侧的滚动区域 -->
 			<scroll-view class="left-sroll-view" scroll-y="true" :style="{height: wh + 'px'}">
@@ -44,7 +45,7 @@
 		},
 		onLoad() {
 			const sysinfo = uni.getSystemInfoSync() 
-			this.wh =  sysinfo.windowHeight
+			this.wh =  sysinfo.windowHeight - 50
 			this.getcatelist()
 			
 		},
@@ -65,6 +66,11 @@
 			gotogooslist(item3){
 				uni.navigateTo({
 					url:'/subpkg/goods_list/goods_list?cid=' + item3.cat_id
+				})
+			},
+			gotoFn(){
+				uni.navigateTo({
+					url:'/subpkg/search/search'
 				})
 			}
 			
