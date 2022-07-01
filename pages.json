@@ -58,6 +58,7 @@
 		"navigationBarBackgroundColor": "#c00000",
 		"backgroundColor": "#ffffff"		
 	},
+	// 底部导航栏
 	"tabBar": { 
 		// 点击tabbar时文字的高亮颜色
 		"selectedColor": "#c00000",

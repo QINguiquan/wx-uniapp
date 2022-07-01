@@ -1,5 +1,5 @@
 <template>
-	<view v-if="goods_info.goods_name" class="goods-contaIner"> 
+	<view v-if="goods_info.goods_name" class="goods-contaIner">
 		<!-- 轮播图 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item v-for="(item,index) in goods_info.pics" :key="index">
@@ -26,15 +26,20 @@
 		</view>
 		<rich-text :nodes="goods_info.goods_introduce"></rich-text>
 		<view class="goods_nav">
-			<uni-goods-nav :fill="true"  :options="options" :buttonGroup="buttonGroup"  @click="onClick" @buttonClick="buttonClick" />
+			<uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
 		</view>
-		
-		
+
+
 
 	</view>
 </template>
 
 <script>
+	import {
+		mapMutations,
+		mapGetters
+	} from 'vuex'
+
 	export default {
 		data() {
 			return {
@@ -42,7 +47,7 @@
 				options: [{
 					icon: 'shop',
 					text: '店铺',
-					
+
 					infoBackgroundColor: '#007aff',
 					infoColor: "red"
 				}, {
@@ -63,11 +68,28 @@
 				]
 			};
 		},
+		computed: {
+			...mapGetters('cart', ['total'])
+		},
+		watch: {
+
+			total: {
+				handler(newval) {
+					const findres = this.options.find((x) => x.text === '购物车')
+					if (findres) {
+						findres.info = newval
+					}
+				},
+				immediate: true
+			}
+		},
+
 		onLoad(options) {
 			const goods_id = options.goods_id
 			this.getgoodsFn(goods_id)
 		},
 		methods: {
+			...mapMutations('cart', ['addtoCart']),
 			async getgoodsFn(goods_id) {
 				const {
 					data
@@ -85,14 +107,29 @@
 					urls: this.goods_info.pics.map(x => x.pics_big)
 				})
 			},
-			onClick(e){				
-				if(e.content.text==='购物车') {					
+			onClick(e) {
+				if (e.content.text === '购物车') {
 					uni.switchTab({
-						url:'/pages/cart/cart'
+						url: '/pages/cart/cart'
 					})
 				}
+			},
+			buttonClick(e) {
+				if (e.content.text === '加入购物车') {
+					const goods = {
+						goods_id: this.goods_info.goods_id,
+						goods_name: this.goods_info.goods_name,
+						goods_price: this.goods_info.goods_price,
+						goods_count: 1,
+						goods_small_logo: this.goods_info.goods_small_logo,
+						goods_state: true
+					}
+					this.addtoCart(goods)
+				}
+
 			}
-		}
+		},
+
 
 	}
 </script>
@@ -149,14 +186,16 @@
 		}
 
 	}
-	.goods_nav{
+
+	.goods_nav {
 		position: fixed;
 		bottom: 0px;
 		left: 0px;
 		right: 0px;
 		width: 100%;
 	}
-	.goods-contaIner{
+
+	.goods-contaIner {
 		padding-bottom: 50px;
 	}
 </style>

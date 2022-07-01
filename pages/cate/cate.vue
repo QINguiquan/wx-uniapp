@@ -32,7 +32,9 @@
 </template>
 
 <script>
+	import  mixin from '@/mixin/tabbar-badge.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				wh:0   ,//当前设备的可用高度

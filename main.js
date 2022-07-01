@@ -3,6 +3,7 @@ import App from './App'
 
 // 导入网络请求的包
 import { $http } from '@escook/request-miniprogram'
+import store from '@/store/store.js'
 
 uni.$http = $http
 
@@ -38,6 +39,7 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
+	store,
   ...App
 })
 app.$mount()
