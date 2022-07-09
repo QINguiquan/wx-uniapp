@@ -13,8 +13,14 @@ $http.baseUrl = 'https://api-hmugo-web.itheima.net'
 // 请求拦截器
 $http.beforeRequest = function(options) {
   uni.showLoading({
-    title: '数据加载中...'
+    title: '数据加载中...',	
   })
+  // 判断是否需要权限添加身份认证
+  if(options.url.indexOf('/my/') !== -1){
+	  options.header = {
+		  Authorization: store.state.user.token
+	  }
+  }
 }
 
 // 响应拦截器

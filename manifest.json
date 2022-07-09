@@ -46,11 +46,12 @@
         /* 小程序特有相关 */
         "appid" : "wx970cfa150f5ae1af",
         "setting" : {
-            "urlCheck" : true,
-			// 小程序终端提示关闭
-			"checkSiteMap":false     
+            "urlCheck" : false,
+            // 小程序终端提示关闭
+            "checkSiteMap" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {}
     },
     "vueVersion" : "2"
 }
